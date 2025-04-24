@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { quotes as initialQuotes } from "./quotes.js";
+import "./App.css";
+import { QuoteCard } from "./components/QuoteCard";
+import { useState } from "react";
 
 function App() {
+  const [quotes, setQuotes] = useState(initialQuotes);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  function handleNextQuoteClick() {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    setCurrentIndex(randomIndex);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <QuoteCard
+        quote={quotes[currentIndex].quote}
+        author={quotes[currentIndex].author}
+      />
+      <button onClick={handleNextQuoteClick}>Next quote</button>
     </div>
   );
 }
