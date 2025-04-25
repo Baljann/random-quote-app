@@ -1,7 +1,7 @@
 import { quotes as initialQuotes } from "./quotes.js";
 import "./App.css";
 import { QuoteCard } from "./components/QuoteCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [quotes, setQuotes] = useState(initialQuotes);
@@ -12,13 +12,39 @@ function App() {
     setCurrentIndex(randomIndex);
   }
 
+  function updateLikeCount() {
+    const newQuotes = [...quotes];
+    newQuotes[currentIndex].likeCount += 1;
+    setQuotes(newQuotes);
+  }
+
+  useEffect(() => {
+    const savedQuotes = localStorage.getItem("quotes");
+    if (savedQuotes) {
+      setQuotes(JSON.parse(savedQuotes));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+  }, [quotes]);
+
   return (
     <div className="App">
       <QuoteCard
         quote={quotes[currentIndex].quote}
         author={quotes[currentIndex].author}
+        likeCount={quotes[currentIndex].likeCount}
       />
-      <button onClick={handleNextQuoteClick}>Next quote</button>
+      <div className="buttons-container">
+        <button className="like-button" onClick={updateLikeCount}>
+          ♡
+        </button>
+        <br />
+        <button className="next-button" onClick={handleNextQuoteClick}>
+          Next quote
+        </button>
+      </div>
     </div>
   );
 }
