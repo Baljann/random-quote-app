@@ -1,4 +1,4 @@
-### Random Quote App
+# Random Quote App
 A simple React app that displays random quotes with a "like" button to increase the like count. The like count is persistent, saved in localStorage.
 
 ## Features
