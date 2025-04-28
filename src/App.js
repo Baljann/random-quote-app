@@ -13,9 +13,13 @@ function App() {
   }
 
   function updateLikeCount() {
-    const newQuotes = [...quotes];
-    newQuotes[currentIndex].likeCount += 1;
-    setQuotes(newQuotes);
+    setQuotes((prevQuotes) =>
+      prevQuotes.map((quote, index) =>
+        index === currentIndex
+          ? { ...quote, likeCount: quote.likeCount + 1 }
+          : quote
+      )
+    );
   }
 
   useEffect(() => {
