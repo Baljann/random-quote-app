@@ -1,6 +1,6 @@
 # 🌟 Random Quote App
 
-Welcome to the **Random Quote App** — a fun and interactive React app that displays random quotes and lets you like your favorites! 🌈 Each time you like a quote, it keeps track of your likes using **localStorage**, so your preferences stay even if you refresh the page.
+Welcome to the **Random Quote App** — a fun and interactive **React** app that displays random quotes and lets you like your favorites! 
 
 ---
 
@@ -8,7 +8,7 @@ Welcome to the **Random Quote App** — a fun and interactive React app that dis
 
 - 💬 **Random Quotes** — Get a fresh, inspirational quote every time you click "Next Quote."
 - ❤️ **Like Button** — Tap the "like" button to show your appreciation for a quote. 
-- 🔒 **Persistent Like Count** — Your likes are saved using **localStorage**, so they persist even after refreshing the page.
+- 🔒 **Persistent Like Count** — Your likes are saved.
 
 ---
 
@@ -26,7 +26,7 @@ Welcome to the **Random Quote App** — a fun and interactive React app that dis
 ## 🚀 How It Works
 
 1. 🌀 **Next Quote**: Click the button to see a new random quote.
-2. 👍 **Like Button**: Click the heart icon to add a like to the current quote. Your likes will stay saved thanks to localStorage.
+2. 👍 **Like Button**: Click the heart icon to add a like to the current quote. 
 
 ---
 
