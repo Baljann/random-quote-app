@@ -47,4 +47,4 @@ This project is part of my **front-end development journey**. 💪 I'm constantl
 
 ## 💬 Feedback & Contributions
 
-Got any feedback or suggestions? Feel free to open an [issue](https://github.com/YourUsername/random-quote-app/issues) or submit a pull request. Contributions are always welcome! 🙌
+Got any feedback or suggestions? Feel free to open an [issue](https://github.com/Baljann/random-quote-app/issues) or submit a pull request. Contributions are always welcome! 🙌
