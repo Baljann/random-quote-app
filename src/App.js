@@ -1,50 +1,34 @@
-import { quotes as initialQuotes } from "./quotes.js";
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ProfilePage } from "./pages/ProfilePage/index.jsx";
 import { MainPage } from "./pages/MainPage/index.jsx";
 
+const pages = {
+  home: "Home",
+  profile: "Profile",
+};
+
 function App() {
-  const [quotes, setQuotes] = useState(initialQuotes);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  function handleNextQuoteClick() {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    setCurrentIndex(randomIndex);
-  }
-
-  function updateLikeCount() {
-    setQuotes((prevQuotes) => {
-      const updatedQuotes = prevQuotes.map((quote, index) =>
-        index === currentIndex
-          ? { ...quote, likeCount: quote.likeCount + 1 }
-          : quote
-      );
-
-      // Save the updated quotes to localStorage
-      localStorage.setItem("quotes", JSON.stringify(updatedQuotes));
-
-      return updatedQuotes;
-    });
-  }
-
-  useEffect(() => {
-    const savedQuotes = localStorage.getItem("quotes");
-    if (savedQuotes) {
-      setQuotes(JSON.parse(savedQuotes));
-    }
-  }, []);
+  const [currentPage, setCurrentPage] = useState(pages.home);
 
   return (
     <div className="App">
-      <MainPage
-        quote={quotes[currentIndex].quote}
-        author={quotes[currentIndex].author}
-        likeCount={quotes[currentIndex].likeCount}
-        onClick={updateLikeCount}
-        handleOnclick={handleNextQuoteClick}
-      />
-      <ProfilePage />
+      <nav>
+        <ul>
+          <li>
+            <button onClick={() => setCurrentPage(pages.home)}>
+              {pages.home}
+            </button>
+          </li>
+          <li>
+            <button onClick={() => setCurrentPage(pages.profile)}>
+              {pages.profile}
+            </button>
+          </li>
+        </ul>
+      </nav>
+      {currentPage === pages.home && <MainPage />}
+      {currentPage === pages.profile && <ProfilePage />}
     </div>
   );
 }
