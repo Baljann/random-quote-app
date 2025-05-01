@@ -6,8 +6,7 @@
   margin-top: 20px;
 }
 
-.like-button,
-.next-button {
+.like-button {
   padding: 10px 20px;
   font-size: 1.1em;
   border: none;
@@ -24,13 +23,4 @@
 
 .like-button:hover {
   background-color: #ff3333;
-}
-
-.next-button {
-  background-color: #4caf50;
-  color: white;
-}
-
-.next-button:hover {
-  background-color: #45a049;
 }
