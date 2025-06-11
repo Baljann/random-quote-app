@@ -2,6 +2,7 @@ export interface Quote {
   quote: string;
   author: string;
   likeCount: number;
+  userId?: string;
 }
 
 export interface QuotesState {

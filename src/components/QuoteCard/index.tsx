@@ -8,6 +8,8 @@ import { QuotesActionType } from "../../quotesReducer";
 
 interface QuoteCardProps extends Quote {
   onProfilePage?: boolean;
+  isUserCreated?: boolean;
+  handleDeleteCreatedQuote?: (quote: Quote) => void;
 }
 
 export const QuoteCard = ({ quote, author, onProfilePage }: QuoteCardProps) => {
