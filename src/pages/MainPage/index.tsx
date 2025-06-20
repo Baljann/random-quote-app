@@ -1,41 +1,34 @@
-import { useState } from "react";
-import { useQuotesContext, useQuotesDispatch } from "../../QuotesContextProvider";
+import {
+  useQuotesContext,
+  useQuotesDispatch,
+  QuotesDispatchContextType,
+} from "../../QuotesContextProvider";
 import { QuotesActionType } from "../../quotesReducer";
 import { QuoteCard } from "../../components/QuoteCard";
-import { CreateQuoteForm } from "../../components/CreateQuoteForm";
-import { Quote } from "../../types";
 
 export const MainPage = () => {
-  const quotes = useQuotesContext() ?? [];
-  const dispatch = useQuotesDispatch();
-  const { showQuote, currentQuoteIndex } = useQuotesContext() ?? {
+  const { quotes, showQuote, currentQuoteIndex } = useQuotesContext() ?? {
+    quotes: [],
     showQuote: false,
     currentQuoteIndex: null,
-  }; 
-  const [showCreateForm, setShowCreateForm] = useState(false);
+  };
+  const { dispatch }: QuotesDispatchContextType = useQuotesDispatch();
 
-  async function handleFetchQuote() {
-    if (quotes.quotes.length === 0) {
+  const handleFetchQuote = () => {
+    if (quotes.length === 0) {
       console.log("No quotes loaded yet. Please wait or refresh.");
       return;
     }
+    const randomIndex = Math.floor(Math.random() * quotes.length);
     dispatch({ type: QuotesActionType.SET_SHOW_QUOTE, payload: true });
     dispatch({
       type: QuotesActionType.SET_CURRENT_INDEX,
-      payload: Math.floor(Math.random() * quotes.quotes.length),
+      payload: randomIndex,
     });
-  }
-
-  function handleClearQuotes() {
-    dispatch({ type: QuotesActionType.SET_QUOTES, payload: [] });
-    dispatch({ type: QuotesActionType.SET_SHOW_QUOTE, payload: false });
-    dispatch({ type: QuotesActionType.SET_CURRENT_INDEX, payload: null });
-  }
-
-  const handleAddQuote = (newQuote: Quote) => {
-    dispatch({ type: QuotesActionType.ADD_QUOTE, payload: newQuote });
-    setShowCreateForm(false);
   };
+
+  const currentQuote =
+    currentQuoteIndex !== null ? quotes[currentQuoteIndex] : null;
 
   return (
     <main className="text-center py-8 px-4 sm:py-16">
@@ -44,7 +37,9 @@ export const MainPage = () => {
       </h1>
       <p className="text-base md:text-lg text-gray-600 mb-6 sm:mb-10 max-w-2xl mx-auto">
         Explore a vast collection of quotes from various authors and topics.
-        Find the perfect words to motivate and inspire you.
+        Find the perfect words to motivate and inspire you. Like quotes to save
+        them to your collection. To manage your own created or liked quotes,
+        please log in and visit "My Collection".
       </p>
 
       <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 px-4 sm:px-0">
@@ -54,33 +49,15 @@ export const MainPage = () => {
         >
           Fetch Quote
         </button>
-        <button
-          className="border border-gray-300 text-gray-700 px-4 py-2 sm:px-6 sm:py-3 rounded-md font-semibold hover:bg-gray-50 transition text-sm sm:text-base w-full sm:w-auto"
-          onClick={() => setShowCreateForm(true)}
-        >
-          Create
-        </button>
-        <button
-          className="border border-gray-300 text-gray-700 px-4 py-2 sm:px-6 sm:py-3 rounded-md font-semibold hover:bg-gray-50 transition text-sm sm:text-base w-full sm:w-auto"
-          onClick={handleClearQuotes}
-        >
-          Delete
-        </button>
       </div>
-      {showQuote &&
-        currentQuoteIndex !== null &&
-        quotes.quotes[currentQuoteIndex] && (
-          <QuoteCard
-            quote={quotes.quotes[currentQuoteIndex].quote}
-            author={quotes.quotes[currentQuoteIndex].author}
-            likeCount={quotes.quotes[currentQuoteIndex].likeCount}
-          />
-        )}
 
-      {showCreateForm && (
-        <CreateQuoteForm
-          onCreate={handleAddQuote}
-          onCancel={() => setShowCreateForm(false)}
+      {showQuote && currentQuote && (
+        <QuoteCard
+          quote={currentQuote.quote}
+          author={currentQuote.author}
+          likeCount={currentQuote.likeCount}
+          createdBy={currentQuote.createdBy}
+          likedBy={currentQuote.likedBy}
         />
       )}
     </main>
